@@ -163,6 +163,7 @@ class System:
             with open(filename, 'rb') as file:
                 self.products = pickle.load(file)
         except FileNotFoundError:
+            print("Error loading product list: File not Found")
             self.products = {}
         except Exception as e:
             print("Error loading product list:", e)
@@ -444,7 +445,7 @@ def main():  # Main program flow
                             break
                         elif filename != '':
                             pos.save_products(filename)
-                            print("Products loaded from file."
+                            print("Products saved to file."
                                   "\n=====================================================================")
                             input("Press enter to continue")
                             break
@@ -457,8 +458,9 @@ def main():  # Main program flow
                             break
                         elif filename != '':
                             pos.load_products(filename)
-                            print("Products loaded from file."
-                                  "\n=====================================================================")
+                            if pos.products:
+                                print("Products loaded from file.")
+                            print("\n=====================================================================")
                             input("Press enter to continue")
                             break
                         else:
